@@ -94,8 +94,8 @@
         "ANDROID_CRASHLYTICS_NDK_VERSION": "2.1.1"
       },
       "cordova-plugin-firebase-dynamiclinks": {
-        "APP_DOMAIN": "google.com",
-        "PAGE_LINK_DOMAIN": "google.page.link",
+        "APP_DOMAIN": "uaeexchange.com",
+        "PAGE_LINK_DOMAIN": "uaeex.page.link",
         "FIREBASE_ANALYTICS_VERSION": "17.2.+",
         "FIREBASE_DYNAMIC_LINKS_VERSION": "19.0.+"
       }
