@@ -3,8 +3,36 @@
     Ionic Blank
   </ion-title>
 </ion-header>
- 
+
 <ion-content padding>
-  <button ion-button full (click)="updateMyValue()">Click me!</button>
-{{ myVariable }}
+  <ion-card>
+    <ion-button shape="round" color="primary" (click)="getToken()">Get Token</ion-button>
+    <ion-card-content>
+      <p>Token : {{myToken}}</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="myToken">
+    <ion-button shape="round" color="primary" expand="block" (click)="refreshToken()">Refresh Token</ion-button>
+    <ion-card-content>
+      <p>New Token : {{newToken}}</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="newToken">
+    <ion-button shape="round" color="success" (click)="logEventFire()">Log Event Fire</ion-button>
+    <ion-card-content>
+      <p>Try for Log Event </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="newToken">
+    <ion-button shape="round" color="warning" (click)="setScreenNameUserId()">Set Screen Name and User Id</ion-button>
+    <ion-card-content>
+      <p>Set Screen Name nad User Id</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="newToken">
+    <ion-button shape="round" color="primary" (click)="setCrashlyticsUserId()">Set Crashlytics UserId</ion-button>
+    <ion-button shape="round" color="success" (click)="startTrace()">Start Trace</ion-button>
+    <ion-button shape="round" color="warning" (click)="stopTrace()">Stop Trace</ion-button>
+  </ion-card>
+
 </ion-content>

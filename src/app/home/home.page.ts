@@ -12,8 +12,9 @@ import { FirebaseX } from "@ionic-native/firebase-x/ngx";
 export class HomePage {
 
   togglePoint = false;
-  myVariable: string = 'The force is with me!';
+  myVariable: string = 'Home page loaded!';
   myToken:any;
+  newToken:any;
   
   constructor(private firebaseX: FirebaseX,public toastController: ToastController) { }
 
@@ -25,30 +26,48 @@ export class HomePage {
     toast.present();
   }
     
-  updateMyValue() {
-    this.presentToast("1")
-
+  getToken() {
     this.togglePoint = !this.togglePoint;
-    if(this.togglePoint) this.myVariable = 'Now the force is even stronger!';
-    else this.myVariable = 'The force is with me!';
+    if(this.togglePoint) this.myVariable = 'Home page loaded again!';
+    else this.myVariable = 'Home page loaded!';
 
-    this.presentToast("2")
+    this.firebaseX.getToken()
+      .then(
+        (token) => {
+          this.presentToast(`User opened a notification ${token }`)
+          this.myToken = token;
+        }
+      )
+      .catch(error => this.presentToast(error))
+  }
 
-    
-    // this.firebaseX.getToken()
-    //   .then(token => this.presentToast(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
-    //   .catch(error => this.presentToast('Error getting token', error));
-
-    this.firebaseX.onMessageReceived()
-      .subscribe(
-        (data) => this.presentToast(`User opened a notification ${data}`),
-        (error) => { this.presentToast(error)});
-
+  refreshToken() {
     this.firebaseX.onTokenRefresh()
       .subscribe(
-        (token: string) => this.presentToast(`Got a new token ${token}`),
-        (error) => this.presentToast(error));
+        (token: string) => {
+          this.presentToast(`Got a new token ${token}`);
+          this.newToken = `New Token : ${token}`;
+        },
+        (error) => this.presentToast(error));    
+  }
 
-    
+  logEventFire() {
+    this.firebaseX.logEvent("select_content", {content_type: "page_view", item_id: "home"});   
+  }
+  setScreenNameUserId() {
+    this.firebaseX.setScreenName("Home");  
+    this.firebaseX.setUserId("007");
+    this.firebaseX.setUserProperty("name", "Aniani");  
+  }
+  setCrashlyticsUserId() {
+    this.firebaseX.setUserId("007");
+  }
+
+  startTrace() {
+    this.firebaseX.startTrace("test trace");
+  }
+
+  stopTrace() {
+    this.firebaseX.stopTrace("test trace");
   }
 }
